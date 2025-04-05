@@ -7,6 +7,7 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 import BentoGrid from './BentoGrid';
+import MusicPlayer from './MusicPlayer';
 
 // Skills with their respective icons
 const skillsWithIcons = {
@@ -80,6 +81,11 @@ const BioSection: React.FC = () => {
                 </Button>
               </div>
             </div>
+
+            {/* Music Player moved to bottom of profile sidebar */}
+            <div className="w-full mt-6">
+              <MusicPlayer />
+            </div>
           </motion.div>
 
           {/* Main Content */}
@@ -137,9 +143,9 @@ const BioSection: React.FC = () => {
                 </Card>
               </motion.div>
 
-              {/* Bento Grid */}
+              {/* Portfolio / Current Projects */}
               <motion.div variants={itemVariants}>
-                <h2 className="text-2xl font-semibold mb-4 text-gradient">Portfolio</h2>
+                <h2 className="text-2xl font-semibold mb-4 text-gradient">Current Projects</h2>
                 <BentoGrid />
               </motion.div>
             </motion.div>
