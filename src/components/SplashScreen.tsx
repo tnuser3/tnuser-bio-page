@@ -35,13 +35,13 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
               className="glow"
             >
               <motion.h1 
-                className="text-4xl md:text-6xl lg:text-7xl font-bold text-gradient"
+                className="text-4xl md:text-6xl lg:text-7xl font-bold"
                 animate={{ 
                   backgroundPosition: ["200% 0%", "0% 0%"],
                 }}
                 transition={{ duration: 3, ease: "easeInOut" }}
               >
-                Welcome
+                My name is <span className="text-gradient animate-pulse">kman</span>
               </motion.h1>
             </motion.div>
             <motion.div
