@@ -1,10 +1,35 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, ExternalLink } from 'lucide-react';
+import { Github, Linkedin, Mail, ExternalLink, Code, Database, Layout, Settings } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Badge } from '@/components/ui/badge';
+
+// Organize skills by category with appropriate icons
+const skillCategories = [
+  {
+    name: 'Programming Languages',
+    icon: <Code className="h-4 w-4" />,
+    skills: ['JavaScript', 'TypeScript']
+  },
+  {
+    name: 'Frameworks',
+    icon: <Layout className="h-4 w-4" />,
+    skills: ['React', 'Next.js']
+  },
+  {
+    name: 'Libraries',
+    icon: <Database className="h-4 w-4" />,
+    skills: ['Node.js', 'Tailwind CSS', 'GraphQL']
+  },
+  {
+    name: 'Other',
+    icon: <Settings className="h-4 w-4" />,
+    skills: ['UI/UX Design', 'AWS', 'Docker']
+  }
+];
 
 const BioSection: React.FC = () => {
   return (
@@ -66,7 +91,7 @@ const BioSection: React.FC = () => {
               </Card>
             </motion.div>
 
-            {/* Skills */}
+            {/* Skills - Updated with categories and icons */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -75,11 +100,21 @@ const BioSection: React.FC = () => {
               <Card className="glass h-full">
                 <CardContent className="p-6">
                   <h2 className="text-2xl font-semibold mb-4">Skills</h2>
-                  <div className="flex flex-wrap gap-2">
-                    {['JavaScript', 'TypeScript', 'React', 'Node.js', 'Tailwind CSS', 'Next.js', 'UI/UX Design', 'GraphQL', 'AWS', 'Docker'].map((skill) => (
-                      <span key={skill} className="px-3 py-1 bg-secondary rounded-full text-sm">
-                        {skill}
-                      </span>
+                  <div className="space-y-4">
+                    {skillCategories.map((category, index) => (
+                      <div key={index}>
+                        <div className="flex items-center gap-2 mb-2">
+                          {category.icon}
+                          <h3 className="font-medium text-sm">{category.name}</h3>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {category.skills.map((skill) => (
+                            <Badge key={skill} variant="secondary" className="px-3 py-1 bg-secondary/70">
+                              {skill}
+                            </Badge>
+                          ))}
+                        </div>
+                      </div>
                     ))}
                   </div>
                 </CardContent>
