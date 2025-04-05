@@ -1,6 +1,7 @@
 
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Button } from '@/components/ui/button';
 
 interface SplashScreenProps {
   onComplete: () => void;
@@ -9,14 +10,10 @@ interface SplashScreenProps {
 const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   const [isAnimating, setIsAnimating] = useState(true);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsAnimating(false);
-      setTimeout(onComplete, 1000); // Give exit animation time to complete
-    }, 2500);
-
-    return () => clearTimeout(timer);
-  }, [onComplete]);
+  const handleStart = () => {
+    setIsAnimating(false);
+    setTimeout(onComplete, 1000); // Give exit animation time to complete
+  };
 
   return (
     <AnimatePresence>
@@ -50,6 +47,20 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
               transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
               className="h-0.5 bg-gradient-to-r from-blue-600 via-primary to-purple-600 mt-6 rounded-full"
             />
+            
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 2, ease: "easeOut" }}
+              className="mt-8"
+            >
+              <Button 
+                onClick={handleStart}
+                className="px-8 py-2 bg-gradient-to-r from-blue-600 via-primary to-purple-600 hover:opacity-90 transition-opacity"
+              >
+                Enter Site
+              </Button>
+            </motion.div>
           </div>
         </motion.div>
       )}
