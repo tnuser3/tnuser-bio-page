@@ -1,6 +1,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Volume, VolumeX } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 interface SplashScreenProps {
@@ -9,10 +10,16 @@ interface SplashScreenProps {
 
 const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
   const [isAnimating, setIsAnimating] = useState(true);
+  const [isMuted, setIsMuted] = useState(true);
 
   const handleStart = () => {
     setIsAnimating(false);
     setTimeout(onComplete, 1000); // Give exit animation time to complete
+  };
+
+  const toggleMute = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsMuted(!isMuted);
   };
 
   return (
@@ -20,47 +27,55 @@ const SplashScreen: React.FC<SplashScreenProps> = ({ onComplete }) => {
       {isAnimating && (
         <motion.div
           initial={{ opacity: 1 }}
-          exit={{ opacity: 0, y: -50 }}
+          exit={{ opacity: 0 }}
           transition={{ duration: 0.8, ease: "easeInOut" }}
-          className="fixed inset-0 flex items-center justify-center bg-background z-50"
+          className="fixed inset-0 flex items-center justify-center bg-black z-50 cursor-pointer"
+          onClick={handleStart}
         >
+          <div className="absolute top-5 right-5">
+            <Button 
+              variant="ghost" 
+              size="icon" 
+              onClick={toggleMute}
+              className="text-white/70 hover:text-white"
+            >
+              {isMuted ? <VolumeX className="h-5 w-5" /> : <Volume className="h-5 w-5" />}
+            </Button>
+          </div>
+          
           <div className="relative flex flex-col items-center">
             <motion.div
-              initial={{ opacity: 0, scale: 0.8, y: 50 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               className="glow"
             >
               <motion.h1 
-                className="text-4xl md:text-6xl lg:text-7xl font-bold"
+                className="text-4xl md:text-7xl lg:text-8xl font-bold"
                 animate={{ 
                   backgroundPosition: ["200% 0%", "0% 0%"],
                 }}
-                transition={{ duration: 3, ease: "easeInOut" }}
+                transition={{ duration: 3, ease: "easeInOut", repeat: Infinity, repeatType: "reverse" }}
               >
-                My name is <span className="text-gradient animate-pulse">kman</span>
+                My name is <span className="text-gradient">kman</span>
               </motion.h1>
             </motion.div>
+            
             <motion.div
               initial={{ width: 0 }}
-              animate={{ width: "60%" }}
+              animate={{ width: "80%" }}
               transition={{ duration: 2, delay: 0.5, ease: "easeInOut" }}
               className="h-0.5 bg-gradient-to-r from-blue-600 via-primary to-purple-600 mt-6 rounded-full"
             />
             
-            <motion.div
+            <motion.p
               initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
+              animate={{ opacity: 0.7, y: 0 }}
               transition={{ duration: 0.8, delay: 2, ease: "easeOut" }}
-              className="mt-8"
+              className="mt-8 text-white/70 text-lg"
             >
-              <Button 
-                onClick={handleStart}
-                className="px-8 py-2 bg-gradient-to-r from-blue-600 via-primary to-purple-600 hover:opacity-90 transition-opacity"
-              >
-                Enter Site
-              </Button>
-            </motion.div>
+              Click anywhere to enter
+            </motion.p>
           </div>
         </motion.div>
       )}

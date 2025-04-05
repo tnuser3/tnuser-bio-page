@@ -84,10 +84,41 @@
   }
 
   .glass {
-    @apply bg-secondary/30 backdrop-blur-md border border-white/10 shadow-lg;
+    @apply bg-black/30 backdrop-blur-md border border-white/10 shadow-lg;
   }
 
   .text-balance {
     text-wrap: balance;
+  }
+  
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+  
+  .animate-glow-pulse {
+    animation: glow-pulse 4s ease-in-out infinite alternate;
+  }
+  
+  @keyframes float {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  
+  @keyframes glow-pulse {
+    0% {
+      opacity: 0.3;
+      transform: scale(0.95);
+    }
+    100% {
+      opacity: 0.6;
+      transform: scale(1.05);
+    }
   }
 }
