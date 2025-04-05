@@ -7,29 +7,25 @@ import { Card, CardContent } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Badge } from '@/components/ui/badge';
 
-// Organize skills by category with appropriate icons
-const skillCategories = [
-  {
-    name: 'Programming Languages',
-    icon: <Code className="h-4 w-4" />,
-    skills: ['JavaScript', 'TypeScript']
-  },
-  {
-    name: 'Frameworks',
-    icon: <Layout className="h-4 w-4" />,
-    skills: ['React', 'Next.js']
-  },
-  {
-    name: 'Libraries',
-    icon: <Database className="h-4 w-4" />,
-    skills: ['Node.js', 'Tailwind CSS', 'GraphQL']
-  },
-  {
-    name: 'Other',
-    icon: <Settings className="h-4 w-4" />,
-    skills: ['UI/UX Design', 'AWS', 'Docker']
-  }
-];
+// Skills with their respective icons
+const skillsWithIcons = {
+  'Programming Languages': [
+    { name: 'JavaScript', icon: <Code className="h-4 w-4 mr-1" /> },
+    { name: 'TypeScript', icon: <Code className="h-4 w-4 mr-1" /> }
+  ],
+  'Frameworks': [
+    { name: 'React', icon: <Layout className="h-4 w-4 mr-1" /> },
+    { name: 'Next.js', icon: <Layout className="h-4 w-4 mr-1" /> }
+  ],
+  'Other': [
+    { name: 'Node.js', icon: <Database className="h-4 w-4 mr-1" /> },
+    { name: 'Tailwind CSS', icon: <Layout className="h-4 w-4 mr-1" /> },
+    { name: 'GraphQL', icon: <Database className="h-4 w-4 mr-1" /> },
+    { name: 'UI/UX Design', icon: <Settings className="h-4 w-4 mr-1" /> },
+    { name: 'AWS', icon: <Database className="h-4 w-4 mr-1" /> },
+    { name: 'Docker', icon: <Settings className="h-4 w-4 mr-1" /> }
+  ]
+};
 
 const BioSection: React.FC = () => {
   return (
@@ -91,7 +87,7 @@ const BioSection: React.FC = () => {
               </Card>
             </motion.div>
 
-            {/* Skills - Updated with categories and icons */}
+            {/* Skills - Updated with icons directly in skills */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
@@ -101,16 +97,18 @@ const BioSection: React.FC = () => {
                 <CardContent className="p-6">
                   <h2 className="text-2xl font-semibold mb-4">Skills</h2>
                   <div className="space-y-4">
-                    {skillCategories.map((category, index) => (
-                      <div key={index}>
-                        <div className="flex items-center gap-2 mb-2">
-                          {category.icon}
-                          <h3 className="font-medium text-sm">{category.name}</h3>
-                        </div>
+                    {Object.entries(skillsWithIcons).map(([category, skills]) => (
+                      <div key={category}>
+                        <h3 className="font-medium text-sm mb-2">{category}</h3>
                         <div className="flex flex-wrap gap-2">
-                          {category.skills.map((skill) => (
-                            <Badge key={skill} variant="secondary" className="px-3 py-1 bg-secondary/70">
-                              {skill}
+                          {skills.map((skill) => (
+                            <Badge 
+                              key={skill.name} 
+                              variant="secondary" 
+                              className="px-3 py-1 bg-secondary/70 flex items-center"
+                            >
+                              {skill.icon}
+                              {skill.name}
                             </Badge>
                           ))}
                         </div>
